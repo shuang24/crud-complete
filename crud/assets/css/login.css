@@ -1,0 +1,46 @@
+body {
+	font-family:Tahoma, Verdana, "ËÎÌו";
+	margin: 0px;
+	text-align: center;
+	font-size: 12px;
+	background-color: #4A4A4A;
+}
+input {vertical-align: middle;}
+
+/* Login Page */
+#login-xstsoft{
+	background-image: url(../images/default/logo.png);
+	background-repeat: no-repeat;
+	background-position: center 40px;
+	height: 200px;
+}
+.login_main{/*text-align:center;*/}
+.login_cont{position:relative;}
+.login_kuang{
+	background-image: url(../images/default/login.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	height: 220px;
+	width:400px;
+	position:relative;
+	
+}
+.login_tab{margin-top:16px;}
+.login_tab td{font-size:14px;color:#FFFFFF;}
+.login_inp{
+	width:150px;
+	height:20px;
+	border:1px solid #eeeeee;
+	background-color: #E7E8E9;
+	font-size: 14px;
+	color: #4a4a4a;
+	line-height: 20px;
+}
+.login_button{
+	width:64px;
+	height:26px;
+	line-height:24px;
+	font-size:14px;
+	color:#4a4a4a;
+}
+#iimg{margin:0;padding:0;}

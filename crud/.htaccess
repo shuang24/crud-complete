@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^category/edit/([0-9]+)?$  /we510/crud/category_edit.php?id=$1  [NC,L] 
+
