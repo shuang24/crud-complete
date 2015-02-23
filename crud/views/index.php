@@ -1,6 +1,6 @@
 <?php include_once 'elements/header.php';?>
               <!-- h2 stays for breadcrumbs --> 
-                <h2><a href="index.php">Home</a> &raquo; <a href="" class="active">Categories</a></h2> 
+                <h2><a href="index.php">Home</a> &raquo; <a href="#" class="active">Categories</a></h2> 
                 
                 <div id="main"> 
 					<h3>Category List</h3> 

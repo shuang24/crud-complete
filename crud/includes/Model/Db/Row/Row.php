@@ -20,26 +20,35 @@ class Row implements ArrayAccess, Countable, RowInterface{
 
 
 	public function __construct(array $config = array()){
+
 		$this->assignData($config);
+			
 	}
 
 	public function assignData(array $config = array()){
-		if (isset($config['table']) && $config['table'] instanceof TableAbstract)
-			{
+		if (isset($config['table']) && $config['table'] instanceof TableAbstract) {
+			$this->_table = $config['table'];
+			$this->_tableClass = get_class($this->_table);
+		} elseif ($this->_tableClass !== null) {
+			$this->_table = new $this->_tableClass();
+		}
+
+		if (isset($config['data'])) {
+			if (!is_array($config['data'])) {
+				throw new Exception('Data must be an array');
 				$this->_table = $config['table'];
 				$this->_tableClass = get_class($this->_table);
-			} elseif ($this->_tableClass !== null) {
+			}elseif($this->_tableClass!==null){
 				$this->_table = new $this->_tableClass();
 			}
-	
-			if (isset($config['data'])) 
-			{
-				if (!is_array($config['data'])) {
+
+			if(isset($config['data'])){
+				if(!is_array($config['data'])){
 					throw new Exception('Data must be an array');
 				}
-	
 				$this->data = $config['data'];
 			}
+		}
 	}
 	public function getTable(){
 		return $this->_table;

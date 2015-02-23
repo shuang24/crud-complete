@@ -1,17 +1,17 @@
 <?php
-ini_set("display_errors", 1);
+ini_set("display_errors", 0);
 require_once 'includes/bootstrap.php';
 
-$post_id = $_GET['post'];
+$cat_id = $_GET['cat'];
 
-if(empty($post_id)){
+if(empty($cat_id)){
 	die("Wrong category id supplied");
 }
-$categoryPrototype = new Model\Category(new Model\Db\Table\PostTable());
+$categoryPrototype = new Model\Category(new Model\Db\Table\Post());
 $categoryTable = new Model\Db\Table\Category($categoryPrototype);
 $cat = $categoryTable->getById($cat_id);
 
-if(empty($post)){
+if(empty($cat)){
 	die("Wrong category id supplied");
 }
 

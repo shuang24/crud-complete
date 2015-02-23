@@ -26,7 +26,6 @@ abstract class TableAbstract implements TableInterface{
 	 * @var string
 	 */
 	protected $_rowClass = "Row";
-	
 	protected $_rowClassObject;
 
 	public function __construct($rowClassObject=null,$dbAdapter=null)
@@ -34,9 +33,8 @@ abstract class TableAbstract implements TableInterface{
 		if($dbAdapter){
 			$this->_adapter = $dbAdapter;
 		}else{
-			$this->_adapter =  @Adapter::getAdapter();
+			$this->_adapter =  Adapter::getAdapter();
 		}
-		
 		if($rowClassObject){
 			$this->_rowClassObject = $rowClassObject;
 		}
@@ -92,6 +90,8 @@ abstract class TableAbstract implements TableInterface{
 
 		$sql .= $where;
 
+
+
 		if($limit != null){
 			$sql .= " LIMIT ".$limit;
 		}
@@ -108,12 +108,9 @@ abstract class TableAbstract implements TableInterface{
 		return $stmt;
 	}
 
-	public function fetchAll($where=null,$limit = null,$sort=null)
-	{
+	public function fetchAll($where=null,$limit = null,$sort=null){
 		$stmt = $this->select($where,$limit,$sort);
-
 		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 		$rowSets = array();
 
 		foreach ($rows as $row){
@@ -123,76 +120,64 @@ abstract class TableAbstract implements TableInterface{
 	            'data'     => $row,
 			);
 
-			$rowObj = $this->getRowOject($data);
+			$rowObj =  $this->getRowOject($data);
 
 			$rowSets[] = $rowObj;
 		}
 
-		if(count($rowSets)==0)
-		{
+		if(count($rowSets)==0){
 			return false;
 		}
 
 		return $rowSets;
 	}
 
-	protected function getRowOject($data)
-	{
-		if($this->_rowClassObject)
-		{
+	protected function getRowOject($data){
+		if($this->_rowClassObject){
 			$rowOject = clone $this->_rowClassObject;
-		}
-		else
-		{
+		}else{
 			$rowOject = new $this->_rowClass();
 		}
 		
 		//(get_class($rowOject));
 		
-		if($rowOject instanceof RowInterface)
-		{
+		if($rowOject instanceof RowInterface){
 			$rowOject->assignData($data);
-		}
-		else
-		{
+		}else{
 			throw new \Exception("Wrong row class provided");
 		}
 		
 		return $rowOject;
 	}
-	public function fetchRow($where=null,$sort=null)
-	{
+	public function fetchRow($where=null,$sort=null){
 		$stmt = $this->select($where,1,$sort);
 
 		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
 		if(count($rows)==0){
 			return false;
 		}
-		
 		$row = $rows[0];
-		$data = array
-		(
+		$data = array(
             'table'   => $this,
             'data'     => $row,
 		);
 
+
+
 		$rowObj = $this->getRowOject($data);
+
 
 		return $rowObj;
 	}
 
-	function getById($id,$field = "id")
-	{
+	function getById($id,$field = "id"){
 		return $this->fetchRow(array($field=>$id));
 	}
 
 
-	public function insert($set)
-	{
+	public function insert($set){
 		$sql = "INSERT INTO ".$this->_name;
-		foreach($set as $key=>$value)
-		{
+		foreach($set as $key=>$value){
 			$cols[] ="`". $key . "`";
 			$valuePlaceholders [] = "?";
 			$values[] = $value;
@@ -210,17 +195,14 @@ abstract class TableAbstract implements TableInterface{
 
 	}
 
-	public function update($set, $where = null)
-	{
+	public function update($set, $where = null){
 
-		if(isset($set['id']))
-		{
+		if(isset($set['id'])){
 			unset($set['id']);
 		}
 
 		$sql = "UPDATE	 ".$this->_name ." SET ";
-		foreach($set as $key=>$value)
-		{
+		foreach($set as $key=>$value){
 			$cols[] ="`". $key . "` = ?";
 			$values[] = $value;
 		}

@@ -1,16 +1,14 @@
 <?php
 require_once 'includes/bootstrap.php';
-$data=$_POST;
+$data = $_POST;
 
-if(empty($data))
-{
-	die("something error")
+if(empty($data)){
+	die("Wrong place");
 }
 
-$post = new Model\Post()
-$post->time=new time_created('NOW');
+$post = new Model\PostRow();
+$post->time_created=new DateTime('NOW');
 $post->setData($data)->save();
-echo BASE_URL. 'index.php';
+echo BASE_URL.'index.php';
 
-header("Location: ".BASE_URL."posts.php?cat=".$data['cateory_id']);
-?>
+header("Location: ".BASE_URL."posts.php?cat=".$data['category_id']);
